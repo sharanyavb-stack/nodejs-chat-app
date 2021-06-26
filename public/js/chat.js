@@ -3,6 +3,8 @@ const $messageFormInput = document.querySelector('input')
 const $messageFormButton = document.querySelector('button') 
 const $sendLocationButton = document.querySelector('#send-location') 
 const $messages = document.querySelector('#messages') 
+// const $messageBox1 = document.querySelector('#messageBox1') 
+// const $messageBox2 = document.querySelector('#messageBox2') 
 
 // templates
 const messageTemplate = document.querySelector('#message-template').innerHTML
@@ -51,9 +53,10 @@ socket.on('message', (data) => {
         createdAt: moment(data.createdAt).format('h:mm a')
     })
     $messages.insertAdjacentHTML('beforeend', html)
-    if (currentUser === data.username) {
-        $messages.lastElementChild.className = 'message currentUserMessage'
-    }
+    // if (currentUser === data.username) {
+    //     console.log($messageBox1);
+    //     $messageBox1.classList.add('messageInner')
+    // }
     autoscroll()
 })
 $messageForm.addEventListener('submit', (e)=> {
@@ -93,7 +96,7 @@ socket.on('roomData', ({room, users})=> {
     document.querySelector('#sidebar').innerHTML = html
 })
 socket.emit('join', {username, room}, (error) => {
-    currentUser = username.trim().toLowerCase();
+    // currentUser = username.trim().toLowerCase();
     if (error) {
         alert(error)
         location.href = '/'
